@@ -60,13 +60,16 @@ def run_whisperx(
 
     # 화자 분리
     if diarize:
-        diarize_model = whisperx.DiarizationPipeline(device=device)
+        from whisperx.diarize import DiarizationPipeline
+
+        hf_token = os.getenv("HF_TOKEN")
+        diarize_model = DiarizationPipeline(token=hf_token, device=device)
         diarize_kwargs = {}
         if min_speakers is not None:
             diarize_kwargs["min_speakers"] = min_speakers
         if max_speakers is not None:
             diarize_kwargs["max_speakers"] = max_speakers
-        diarize_segments = diarize_model(audio, **diarize_kwargs)
+        diarize_segments = diarize_model(str(audio_path), **diarize_kwargs)
         result = whisperx.assign_word_speakers(diarize_segments, result)
 
     return result

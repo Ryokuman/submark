@@ -329,3 +329,5 @@ pyrightconfig.json
 
 ### SubMark ###
 output/
+data/
+.env
