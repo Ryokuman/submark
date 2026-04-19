@@ -3,11 +3,12 @@
 from __future__ import annotations
 
 import json
+import os
 import urllib.request
 import urllib.error
 
-OLLAMA_URL = "http://localhost:11434/api/generate"
-DEFAULT_MODEL = "gemma3"
+OLLAMA_URL = os.getenv("OLLAMA_URL", "http://localhost:11434/api/generate")
+DEFAULT_MODEL = os.getenv("OLLAMA_MODEL", "gemma3")
 
 
 def generate(prompt: str, model: str = DEFAULT_MODEL) -> str:

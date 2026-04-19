@@ -1,7 +1,26 @@
 services:
+  ollama:
+    image: ollama/ollama
+    container_name: submark-ollama
+    volumes:
+      - ollama_data:/root/.ollama
+    ports:
+      - "11434:11434"
+
+  ollama-pull:
+    image: ollama/ollama
+    container_name: submark-ollama-pull
+    depends_on:
+      - ollama
+    entrypoint: ["sh", "-c", "sleep 3 && ollama pull gemma3"]
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+
   submark:
     build: .
     container_name: submark
+    depends_on:
+      - ollama
     volumes:
       - ./data/input:/data/input
       - ./data/output:/data/output
@@ -10,4 +29,9 @@ services:
     environment:
       - SUBMARK_LANGUAGE=tr
       - SUBMARK_DIARIZE=true
+      - OLLAMA_URL=http://ollama:11434/api/generate
+      - OLLAMA_MODEL=gemma3
     entrypoint: ["tail", "-f", "/dev/null"]
+
+volumes:
+  ollama_data:
