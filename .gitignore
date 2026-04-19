@@ -326,3 +326,6 @@ pyrightconfig.json
 .history
 .ionide
 .claude
+
+### SubMark ###
+output/
