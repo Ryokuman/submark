@@ -12,6 +12,7 @@ class Word(BaseModel):
     word: str
     start: float
     end: float
+    score: float
 
 
 class Segment(BaseModel):

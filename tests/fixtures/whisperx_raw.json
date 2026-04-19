@@ -1,0 +1,41 @@
+{
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 3.5,
+      "text": "Merhaba arkadaşlar, bugün çok güzel bir konumuz var.",
+      "speaker": "SPEAKER_00",
+      "words": [
+        {"word": "Merhaba", "start": 0.0, "end": 0.5, "score": 0.95},
+        {"word": "arkadaşlar,", "start": 0.6, "end": 1.1, "score": 0.93},
+        {"word": "bugün", "start": 1.2, "end": 1.5, "score": 0.97},
+        {"word": "çok", "start": 1.6, "end": 1.8, "score": 0.96},
+        {"word": "güzel", "start": 1.9, "end": 2.2, "score": 0.94},
+        {"word": "bir", "start": 2.3, "end": 2.5, "score": 0.98},
+        {"word": "konumuz", "start": 2.6, "end": 3.0, "score": 0.91},
+        {"word": "var.", "start": 3.1, "end": 3.5, "score": 0.95}
+      ]
+    },
+    {
+      "start": 4.0,
+      "end": 7.2,
+      "text": "Evet, Almanya'ya taşınma hikayemi anlatacağım.",
+      "speaker": "SPEAKER_01",
+      "words": [
+        {"word": "Evet,", "start": 4.0, "end": 4.3, "score": 0.92},
+        {"word": "Almanya'ya", "start": 4.4, "end": 5.1, "score": 0.88},
+        {"word": "taşınma", "start": 5.2, "end": 5.7, "score": 0.90},
+        {"word": "hikayemi", "start": 5.8, "end": 6.4, "score": 0.87},
+        {"word": "anlatacağım.", "start": 6.5, "end": 7.2, "score": 0.85}
+      ]
+    },
+    {
+      "start": 12.0,
+      "end": 12.3,
+      "text": "",
+      "speaker": "SPEAKER_01",
+      "words": []
+    }
+  ],
+  "language": "tr"
+}
