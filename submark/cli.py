@@ -31,10 +31,21 @@ def transcribe(
 def analyze(
     transcript_path: str = typer.Argument(..., help="transcript.json 경로"),
     output_dir: str = typer.Option("output", "--output", "-o", help="출력 디렉토리"),
+    model: str = typer.Option("gemma3", "--model", "-m", help="Ollama 모델 이름"),
+    system_prompt: str = typer.Option(None, "--system-prompt", "-s", help="커스텀 시스템 프롬프트"),
 ) -> None:
     """transcript → markers (highlight/cut/chapter)"""
+    from pathlib import Path
+    from submark.analyze import analyze as run_analyze
+
     typer.echo(f"[analyze] {transcript_path} → {output_dir}/")
-    raise typer.Exit(code=1)  # TODO: v0.0.2 구현
+    markers = run_analyze(
+        Path(transcript_path),
+        Path(output_dir),
+        model=model,
+        system_prompt=system_prompt,
+    )
+    typer.echo(f"[analyze] 완료 — 마커 {len(markers.markers)}개 생성")
 
 
 @app.command()
