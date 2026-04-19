@@ -11,6 +11,7 @@
 from __future__ import annotations
 
 import json
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -58,6 +59,24 @@ def build_prompt(transcript: Transcript, system_prompt: str | None = None) -> st
     return f"{instruction}\n\n## Transcript\n{transcript_block}\n\n## Output\nJSON array:"
 
 
+def _extract_json_array(text: str) -> str:
+    """LLM 응답에서 JSON 배열 부분만 추출한다.
+
+    Gemma가 ```json ... ``` 으로 감싸거나 앞뒤에 설명을 붙이는 경우 처리.
+    """
+    # 1. ```json ... ``` 코드블록 안의 내용 추출
+    match = re.search(r"```(?:json)?\s*(\[.*?])\s*```", text, re.DOTALL)
+    if match:
+        return match.group(1)
+
+    # 2. 코드블록 없이 [ ... ] 배열만 있는 경우
+    match = re.search(r"\[.*]", text, re.DOTALL)
+    if match:
+        return match.group(0)
+
+    return text
+
+
 def parse_segment_labels(raw_json: str) -> list[dict | None]:
     """LLM 응답 JSON → 세그먼트별 라벨 리스트로 파싱한다.
 
@@ -71,7 +90,8 @@ def parse_segment_labels(raw_json: str) -> list[dict | None]:
         json.JSONDecodeError: JSON 파싱 실패.
         ValueError: 파싱 결과가 리스트가 아닐 때.
     """
-    parsed = json.loads(raw_json)
+    cleaned = _extract_json_array(raw_json)
+    parsed = json.loads(cleaned)
     if not isinstance(parsed, list):
         raise ValueError(f"JSON 배열이 아님: {type(parsed)}")
     return parsed
@@ -167,6 +187,9 @@ def analyze(
 
     prompt = build_prompt(transcript, system_prompt=system_prompt)
     raw_response = generate(prompt, model=model)
+
+    # 디버깅: LLM 원본 응답 저장
+    (output_dir / "llm_raw_response.txt").write_text(raw_response, encoding="utf-8")
 
     labels = parse_segment_labels(raw_response)
     markers = merge_markers(labels, transcript)
