@@ -1,0 +1,13 @@
+services:
+  submark:
+    build: .
+    container_name: submark
+    volumes:
+      - ./data/input:/data/input
+      - ./data/output:/data/output
+    env_file:
+      - .env
+    environment:
+      - SUBMARK_LANGUAGE=tr
+      - SUBMARK_DIARIZE=true
+    entrypoint: ["tail", "-f", "/dev/null"]
