@@ -326,3 +326,9 @@ pyrightconfig.json
 .history
 .ionide
 .claude
+
+### SubMark ###
+output/
+data/
+.env
+.DS_store

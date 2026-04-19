@@ -1,0 +1,36 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "submark"
+version = "0.0.1"
+description = "자막(SRT) + 편집 마커(Premiere CSV) 자동 생성 도구"
+requires-python = ">=3.9"
+dependencies = [
+    "typer>=0.9",
+    "pydantic>=2.0",
+    "ffmpeg-python>=0.2",
+]
+
+[project.optional-dependencies]
+stt = [
+    "whisperx",
+]
+llm = [
+    "ollama",
+]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.4",
+]
+
+[project.scripts]
+submark = "submark.cli:app"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

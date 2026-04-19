@@ -1,0 +1,45 @@
+{
+  "metadata": {
+    "transcript_id": "podcast_ep01",
+    "generated_by": "gemma-3-12b-q4",
+    "created_at": "2026-04-19T12:05:00Z"
+  },
+  "markers": [
+    {
+      "id": "mk_0001",
+      "start": 4.0,
+      "end": 10.5,
+      "type": "highlight",
+      "reason": "독일 이주 얘기, 친구 리액션 강함",
+      "confidence": 0.9,
+      "source_segments": ["seg_0002", "seg_0003"]
+    },
+    {
+      "id": "mk_0002",
+      "start": 12.0,
+      "end": 12.3,
+      "type": "silence",
+      "reason": "정적 구간",
+      "confidence": 0.95,
+      "source_segments": ["seg_0004"]
+    },
+    {
+      "id": "mk_0003",
+      "start": 25.0,
+      "end": 28.0,
+      "type": "cut",
+      "reason": "말더듬 반복 (şey 4회)",
+      "confidence": 0.85,
+      "source_segments": ["seg_0007"]
+    },
+    {
+      "id": "mk_0004",
+      "start": 30.0,
+      "end": 30.0,
+      "type": "chapter",
+      "reason": "주제 전환: 독일 이주 → 터키 음식",
+      "confidence": 0.92,
+      "source_segments": ["seg_0008"]
+    }
+  ]
+}
