@@ -1,5 +1,7 @@
 """Typer CLI 진입점"""
 
+from pathlib import Path
+
 import typer
 
 app = typer.Typer(name="submark", help="자막 + 편집 마커 자동 생성 도구")
@@ -12,8 +14,17 @@ def transcribe(
     output_dir: str = typer.Option("output", "--output", "-o", help="출력 디렉토리"),
 ) -> None:
     """영상 → transcript.json + subtitle.srt"""
+    from submark.transcribe import transcribe_pipeline
+
+    input_file = Path(input_path)
+    if not input_file.exists():
+        typer.echo(f"오류: 파일을 찾을 수 없습니다: {input_path}", err=True)
+        raise typer.Exit(code=1)
+
+    out = Path(output_dir)
     typer.echo(f"[transcribe] {input_path} (lang={lang}) → {output_dir}/")
-    raise typer.Exit(code=1)  # TODO: v0.0.1 구현
+    transcript = transcribe_pipeline(input_file, out, language=lang)
+    typer.echo(f"완료: {len(transcript.segments)}개 세그먼트, {len(transcript.metadata.speakers)}명 화자")
 
 
 @app.command()
